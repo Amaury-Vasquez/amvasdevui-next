@@ -3,8 +3,9 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
+import "amvasdev-ui/dist/index.css";
 import "./globals.css";
-import { Navbar } from "@/components";
+import { Sidebar, Navbar } from "@/components";
 import { THEME_COOKIE } from "@/constants/cookies";
 import Provider from "@/provider";
 
@@ -27,9 +28,12 @@ export default function RootLayout({
     <html lang="en" data-theme={theme}>
       <body className={clsx("bg-base-200", inter.className)}>
         <Provider>
-          <div className="w-full min-h-svh flex flex-col">
-            <Navbar />
-            {children}
+          <div className="w-full min-h-svh flex">
+            <Sidebar />
+            <div className="flex lg:ml-80 flex-col w-full h-fit max-h-svh overflow-y-auto min-h-[calc(100svh-4.5rem)]">
+              <Navbar />
+              {children}
+            </div>
           </div>
         </Provider>
       </body>

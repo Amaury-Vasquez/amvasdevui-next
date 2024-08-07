@@ -1,13 +1,12 @@
 "use client";
 import { Button, Modal } from "amvasdev-ui";
 import { useToggle } from "usehooks-ts";
-import "amvasdev-ui/dist/index.css";
 
 export default function Home() {
   const [isOpen, toggleIsOpen] = useToggle();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <Button
         className=""
         variant="info"
