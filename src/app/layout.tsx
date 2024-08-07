@@ -1,6 +1,12 @@
+import { THEME_LIST } from "amvasdev-ui";
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
+import { Navbar } from "@/components";
+import { THEME_COOKIE } from "@/constants/cookies";
+import Provider from "@/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +20,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStorage = cookies();
+  const theme = cookieStorage.get(THEME_COOKIE)?.value ?? THEME_LIST[0];
+
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" data-theme={theme}>
+      <body className={clsx("bg-base-200", inter.className)}>
+        <Provider>
+          <div className="w-full min-h-svh flex flex-col">
+            <Navbar />
+            {children}
+          </div>
+        </Provider>
+      </body>
     </html>
   );
 }
