@@ -10,7 +10,7 @@ export async function request<T>(
   body?: {}
 ): Promise<T | undefined> {
   try {
-    const request = await fetch(`/api/${path}`, {
+    const request = await fetch(process.env.NEXT_PUBLIC_HOST + `/api/${path}`, {
       method,
       headers: {
         "Content-Type": "application/json; charset=utf-8",

@@ -8,9 +8,21 @@ export async function getAllComponents() {
       .collection("components")
       .find()
       .toArray();
-    // @ts-ignore
     return components;
   } catch (error) {
     console.error("Failed to get components", error);
+  }
+}
+
+export async function getComponentByName(name: string) {
+  try {
+    const client = await Db.getClient();
+    const component = await client
+      .db("amvasdevui")
+      .collection("components")
+      .findOne({ name });
+    return component;
+  } catch (error) {
+    console.error("Failed to get component", error);
   }
 }
