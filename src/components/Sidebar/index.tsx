@@ -12,11 +12,13 @@ import { useToggle } from "usehooks-ts";
 import Link from "@/components/Link";
 import { GITHUB_URL, NPM_URL, PORTFOLIO_URL } from "@/constants/links";
 import useComponents from "@/queries/useComponents";
+import { getComponentName } from "@/utils/format";
 import NavMenu from "./NavMenu";
 
 const DOCS = [
   { name: "Install", href: "/docs/install" },
   { name: "Getting Started", href: "/docs/getting-started" },
+  { name: "Theming", href: "/docs/theming" },
   { name: "Utilities", href: "/docs/utilities" },
 ];
 
@@ -69,24 +71,33 @@ const Sidebar = () => {
         <NavMenu
           opener={{ Icon: Puzzle, text: "components" }}
           options={components.map(({ name }) => ({
-            name,
+            name: getComponentName(name),
             href: `/components/${name.toLowerCase()}`,
           }))}
         />
         <div className="flex flex-col">
-          <Link variant="ghost" href={GITHUB_URL} className="!justify-start">
+          <Link
+            variant="ghost"
+            href={GITHUB_URL}
+            className="!justify-start"
+            target="_blank"
+          >
             <FolderGit2 size={16} /> Github
           </Link>
-          <Link variant="ghost" href={NPM_URL} className="!justify-start">
+          <Link
+            variant="ghost"
+            href={NPM_URL}
+            className="!justify-start"
+            target="_blank"
+          >
             <Box size={16} />
             Npm
           </Link>
         </div>
-        <div className="flex h-full items-end">
+        <div className="flex h-full">
           <Link
             href={PORTFOLIO_URL}
             className="text-sm w-full text-base-content no-underline"
-            // @ts-ignore
             target="_blank"
           >
             @amvasdev

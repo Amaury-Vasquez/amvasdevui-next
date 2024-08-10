@@ -1,10 +1,11 @@
 "use client";
 import { Input } from "amvasdev-ui";
+import clsx from "clsx";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useCallback, useMemo, useState } from "react";
 import useComponents from "@/queries/useComponents";
-import clsx from "clsx";
+import { getComponentName } from "@/utils/format";
 
 const Searchbar = () => {
   const { components } = useComponents();
@@ -32,6 +33,7 @@ const Searchbar = () => {
   return (
     <div className="relative w-full max-w-full">
       <Input
+        autoComplete="off"
         id="search-component"
         placeholder="Search components..."
         variant="ghost"
@@ -55,7 +57,7 @@ const Searchbar = () => {
                 }
               )}
             >
-              <h3 className="font-semibold">{name}</h3>
+              <h3 className="font-semibold">{getComponentName(name)}</h3>
               <p className="truncate text-sm">{description}</p>
             </Link>
           ))}
