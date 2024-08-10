@@ -2,12 +2,16 @@ import { ButtonSize, ButtonVariant, getButtonClasses } from "amvasdev-ui";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import clsx from "clsx";
 
-interface LinkProps extends NextLinkProps {
+export type LinkTarget = "_blank" | "_self" | "_parent" | "_top";
+
+interface LinkProps extends Omit<NextLinkProps, "target"> {
   className?: string;
   children: React.ReactNode;
   size?: ButtonSize;
   variant?: ButtonVariant;
   outlined?: boolean;
+  // options for anchor target attribute
+  target?: LinkTarget;
 }
 
 const Link = ({
