@@ -27,6 +27,39 @@ const Component = ({ componentName }: ComponentProps) => {
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-xl font-bold">Props</h2>
+        <div className="overflow-x-auto">
+          <table className="table table-lg">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Prop Type</th>
+                <th>Required</th>
+                <th>Default value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(props).map((propName) => {
+                const {
+                  description,
+                  required,
+                  type,
+                  default: defaultValue,
+                } = props[propName];
+
+                return (
+                  <tr key={propName}>
+                    <td>{propName}</td>
+                    <td>{description}</td>
+                    <td>{type}</td>
+                    <td>{required ? "Required" : "Optional"}</td>
+                    <td>{defaultValue}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         <div className="flex flex-col gap-4">
           {Object.keys(props).map((propName) => {
             const {

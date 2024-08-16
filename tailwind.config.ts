@@ -18,6 +18,20 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        "appear-from-left": {
+          "0%": { transform: "translateX(-100%)", opacity: "0" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "disappear-to-left": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)", opacity: "0" },
+        },
+      },
+      animation: {
+        "appear-from-left": "appear-from-left 0.2s ease-out",
+        "disappear-to-left": "disappear-to-left 0.2s ease-in",
+      },
     },
   },
   plugins: [require("daisyui")],

@@ -30,9 +30,11 @@ export default function RootLayout({
         <Provider>
           <div className="w-full min-h-svh flex">
             <Sidebar />
-            <div className="flex lg:ml-80 flex-col w-full h-fit max-h-svh overflow-y-auto min-h-[calc(100svh-4.5rem)]">
+            <div className="flex xl:ml-80 flex-col w-full h-fit max-h-svh overflow-y-auto min-h-[calc(100svh-4.5rem)]">
               <Navbar />
-              <div className="px-4 py-3 md:container">{children}</div>
+              <div className="px-4 py-3 mx-auto max-w-[1540px] w-full">
+                {children}
+              </div>
             </div>
           </div>
         </Provider>
