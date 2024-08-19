@@ -1,8 +1,17 @@
 "use client";
+import clsx from "clsx";
 import useComponentByName from "@/queries/useComponentByName";
 import { getComponentName } from "@/utils/format";
 import { StoryMap } from "./Stories";
 import UnknownUsage from "./UnknownUsage";
+
+const TABLE_HEADERS = [
+  "Name",
+  "Description",
+  "Prop type",
+  "Required",
+  "Default",
+];
 
 interface ComponentProps {
   componentName: string;
@@ -22,62 +31,95 @@ const Component = ({ componentName }: ComponentProps) => {
         <p className="font-medium">{description}</p>
       </div>
       <div className="flex flex-col gap-4">
-        <h2 className="text-xl font-bold">Usage</h2>
+        <h2 className="text-xl font-bold">Example</h2>
         {StoryMap[componentName] ?? <UnknownUsage />}
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-xl font-bold">Props</h2>
-        <div className="overflow-x-auto">
-          <table className="table table-lg">
+        <div className="overflow-x-auto shadow-lg border border-solid border-base-300 rounded-lg">
+          <table className="w-full table table-lg" border={1}>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Prop Type</th>
-                <th>Required</th>
-                <th>Default value</th>
+                {TABLE_HEADERS.map((header, idx) => (
+                  <th
+                    key={header}
+                    className={clsx(
+                      "font-bold text-secondary text-sm border-b border-solid border-base-300 text-left",
+                      { "border-r": idx !== TABLE_HEADERS.length - 1 }
+                    )}
+                  >
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {Object.keys(props).map((propName) => {
+              {Object.keys(props).map((propName, idx) => {
                 const {
                   description,
                   required,
                   type,
                   default: defaultValue,
                 } = props[propName];
-
+                const len = Object.keys(props).length;
                 return (
                   <tr key={propName}>
-                    <td>{propName}</td>
-                    <td>{description}</td>
-                    <td>{type}</td>
-                    <td>{required ? "Required" : "Optional"}</td>
-                    <td>{defaultValue}</td>
+                    <td
+                      className={clsx(
+                        "font-semibold text-sm border-solid border-base-300 text-left border-r",
+                        {
+                          "border-b": idx !== len - 1,
+                        }
+                      )}
+                    >
+                      {propName}
+                    </td>
+                    <td
+                      className={clsx(
+                        "font-normal text-sm border-solid border-base-300 text-left border-r",
+                        {
+                          "border-b": idx !== len - 1,
+                        }
+                      )}
+                    >
+                      {description}
+                    </td>
+                    <td
+                      className={clsx(
+                        "font-semibold text-sm border-solid border-base-300 text-left border-r",
+                        {
+                          "border-b": idx !== len - 1,
+                        }
+                      )}
+                    >
+                      {type}
+                    </td>
+                    <td
+                      className={clsx(
+                        "font-semibold text-accent text-sm border-solid border-base-300 text-left border-r",
+                        {
+                          "border-b": idx !== len - 1,
+                        }
+                      )}
+                    >
+                      {required ? "true" : "false"}
+                    </td>
+                    <td
+                      className={clsx(
+                        "font-semibold text-accent text-sm text-left",
+                        {
+                          "border-b border-solid border-base-300":
+                            idx !== len - 1,
+                        }
+                      )}
+                    >
+                      {defaultValue}
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-        </div>
-        <div className="flex flex-col gap-4">
-          {Object.keys(props).map((propName) => {
-            const {
-              description,
-              required,
-              type,
-              default: defaultValue,
-            } = props[propName];
-            return (
-              <div key={propName} className="flex gap-2">
-                <h3 className="text-lg font-bold">{propName}</h3>
-                <p>{description}</p>
-                <p>{required ? "Required" : "Optional"}</p>
-                <p>{type}</p>
-                <p>{defaultValue}</p>
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

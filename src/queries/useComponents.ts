@@ -6,7 +6,7 @@ export async function getAllComponents() {
   return await request<IDbComponent[]>("components");
 }
 
-const COMPONENTS_QUERY_KEY = ["components"];
+export const COMPONENTS_QUERY_KEY = ["components"];
 
 export default function useComponents() {
   const { data: components = [], ...args } = useQuery({
